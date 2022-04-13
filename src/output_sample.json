@@ -1,0 +1,260 @@
+{
+    "entities": [
+        [
+            "march 19, 2021",
+            "DATE"
+        ],
+        [
+            "the march 2020",
+            "DATE"
+        ],
+        [
+            "march 21 this year",
+            "DATE"
+        ],
+        [
+            "rs 116.46 crore",
+            "MONEY"
+        ],
+        [
+            "havells india",
+            "ORG"
+        ],
+        [
+            "mic electronics limited",
+            "ORG"
+        ],
+        [
+            "0.90",
+            "MONEY"
+        ],
+        [
+            "bse",
+            "ORG"
+        ],
+        [
+            "one year ago",
+            "DATE"
+        ],
+        [
+            "5 day",
+            "DATE"
+        ],
+        [
+            "rs 5.41 crore",
+            "MONEY"
+        ],
+        [
+            "the fiscal ended march 2021",
+            "DATE"
+        ],
+        [
+            "50 day",
+            "DATE"
+        ],
+        [
+            "rs 2.23 crore",
+            "MONEY"
+        ],
+        [
+            "rs 1.86 crore",
+            "MONEY"
+        ],
+        [
+            "rs 3.40 crore",
+            "MONEY"
+        ],
+        [
+            "21.15",
+            "MONEY"
+        ],
+        [
+            "88.25",
+            "MONEY"
+        ],
+        [
+            "q3 of the current fiscal",
+            "DATE"
+        ],
+        [
+            "rs 1.09 crore",
+            "MONEY"
+        ],
+        [
+            "the september quarter of the current fiscal",
+            "DATE"
+        ],
+        [
+            "rs 24.31 lakh",
+            "MONEY"
+        ],
+        [
+            "rs 2 lakh",
+            "MONEY"
+        ],
+        [
+            "the last fiscal",
+            "DATE"
+        ],
+        [
+            "cg power",
+            "ORG"
+        ],
+        [
+            "the december 2021 quarter",
+            "DATE"
+        ],
+        [
+            "q3 of the last fiscal",
+            "DATE"
+        ],
+        [
+            "22.25",
+            "MONEY"
+        ],
+        [
+            "the december quarter of the previous fiscal",
+            "DATE"
+        ],
+        [
+            "rs 1.05 crore",
+            "MONEY"
+        ],
+        [
+            "the fiscal ended 2020",
+            "DATE"
+        ],
+        [
+            "the last one year",
+            "DATE"
+        ],
+        [
+            "20 day",
+            "DATE"
+        ],
+        [
+            "rs 26.97 crore",
+            "MONEY"
+        ],
+        [
+            "the september 2021 quarter",
+            "DATE"
+        ],
+        [
+            "rs 23.95 crore",
+            "MONEY"
+        ],
+        [
+            "siemens",
+            "ORG"
+        ],
+        [
+            "rs 0.06 crore",
+            "MONEY"
+        ],
+        [
+            "india",
+            "GPE"
+        ],
+        [
+            "quarterly",
+            "DATE"
+        ],
+        [
+            "rs 7.14 crore",
+            "MONEY"
+        ],
+        [
+            "abb india",
+            "ORG"
+        ],
+        [
+            "quarter",
+            "DATE"
+        ],
+        [
+            "annual",
+            "DATE"
+        ],
+        [
+            "mic electronics",
+            "ORG"
+        ],
+        [
+            "rs 1 lakh",
+            "MONEY"
+        ],
+        [
+            "200 day",
+            "DATE"
+        ],
+        [
+            "rs 13.76 lakh",
+            "MONEY"
+        ],
+        [
+            "today",
+            "DATE"
+        ],
+        [
+            "100 day",
+            "DATE"
+        ],
+        [
+            "one year",
+            "DATE"
+        ]
+    ],
+    "statistics": {
+        "paragraph_count": 1,
+        "sentence_count": 59,
+        "word_count": 549,
+        "character_count": 2414,
+        "avg_word_length": 4.4,
+        "avg_sentence_length": 108.74,
+        "syllable_count": 1.22,
+        "frequent_words": [
+            "rs",
+            "cent",
+            "crore",
+            "stock",
+            "shares"
+        ],
+        "reading_difficulty": 87.42
+    },
+    "keywords": [
+        "individual share capital",
+        "mic electronics limited",
+        "afternoon session today",
+        "fiscals quarterly basis",
+        "september 2021 quarter",
+        "averages stock opened",
+        "mic electronics share",
+        "public shareholder",
+        "outperformed peers",
+        "day moving average",
+        "q3 fiscal quarter",
+        "per cent",
+        "microcap stock",
+        "64 lakh shares",
+        "per cent stake",
+        "per cent today",
+        "sensex gained",
+        "crore shares",
+        "stock market",
+        "intraday low",
+        "bse microcap",
+        "today stock",
+        "penny stock",
+        "stock stuck",
+        "fiscal",
+        "losses",
+        "46 631",
+        "shares",
+        "sales",
+        "share",
+        "stock",
+        "firm"
+    ],
+    "document_sentiment": "positive"
+}
