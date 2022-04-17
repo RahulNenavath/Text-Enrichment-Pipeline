@@ -2,7 +2,6 @@ import json
 import spacy
 import logging
 import traceback
-from pydantic import BaseModel
 from enrichment_pipeline import TextEnrichmentPipeline
 
 logging.basicConfig(level=logging.INFO)

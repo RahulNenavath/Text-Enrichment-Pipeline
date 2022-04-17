@@ -1,6 +1,6 @@
 import re
 import pke
-# import nltk
+import nltk
 # import math
 import spacy
 import textacy
@@ -15,6 +15,8 @@ from collections import deque, Counter
 from textacy.extract import keyterms as kt
 from concurrent.futures import ThreadPoolExecutor
 from nltk.tokenize import sent_tokenize, word_tokenize
+
+nltk.download('punkt')
 
 warnings.filterwarnings('ignore')
 
