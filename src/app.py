@@ -41,34 +41,34 @@ def handler(event, context):
             })
         }
 
-    elif event['rawPath'] == '/text-process':
+    # elif event['rawPath'] == '/text-process':
 
-        request_body = json.loads(event['body'])
-        request_text = str(request_body['text'])
+    #     request_body = json.loads(event['body'])
+    #     request_text = str(request_body['text'])
 
-        try:
-            enriched_text = enrichment_pipeline.enrich(text=request_text)
+    #     try:
+    #         enriched_text = enrichment_pipeline.enrich(text=request_text)
 
-            return {
-                "statusCode": 200,
-                "headers": {
-                    "Content-Type": "application/json"
-                },
-                "body": json.dumps({
-                    "enriched_text": enriched_text,
-                })
-            }
-        except Exception as e:
-            return {
-                "statusCode": 200,
-                "headers": {
-                    "Content-Type": "application/json"
-                },
-                "body": json.dumps({
-                    "Error": str(traceback.format_exc),
-                    "Exception": str(e)
-                })
-            }
+    #         return {
+    #             "statusCode": 200,
+    #             "headers": {
+    #                 "Content-Type": "application/json"
+    #             },
+    #             "body": json.dumps({
+    #                 "enriched_text": enriched_text,
+    #             })
+    #         }
+    #     except Exception as e:
+    #         return {
+    #             "statusCode": 200,
+    #             "headers": {
+    #                 "Content-Type": "application/json"
+    #             },
+    #             "body": json.dumps({
+    #                 "Error": str(traceback.format_exc),
+    #                 "Exception": str(e)
+    #             })
+    #         }
     else:
         return {
             "statusCode": 200,
