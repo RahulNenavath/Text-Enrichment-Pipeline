@@ -9,7 +9,6 @@ import warnings
 import textstat
 # import numpy as np
 import contractions
-from keybert import KeyBERT
 from typing import Tuple, List
 # from transformers import pipeline
 from collections import deque, Counter
@@ -144,7 +143,6 @@ class KeywordExtractor:
         self.__text = ""
         self.__stopwords = stopwords
         self.__spacy_model = spacy_lang_model
-        self.__mini_lm_l6_model = KeyBERT(model="all-MiniLM-L6-v2")
         self.__topic_rank = pke.unsupervised.TopicRank()
         self.__text_rank = pke.unsupervised.TextRank()
         self.__yake = pke.unsupervised.YAKE()
@@ -218,13 +216,6 @@ class KeywordExtractor:
         s_cake = [kw for kw, wt in kt.scake(doc, normalize="lemma", topn=5)]
         return [list(item)[0] for item in textacy.extract.utils.aggregate_term_variants(set(sg_rank + s_cake))]
 
-    def keybert_extraction(self, text=None):
-        input_text = self.__text if text is None else text
-        keyphrases = self.__mini_lm_l6_model.extract_keywords(input_text, keyphrase_ngram_range=(1, 2),
-                                                              stop_words=self.__stopwords,
-                                                              use_maxsum=True, nr_candidates=20, top_n=5)
-        return [item[0] for item in keyphrases]
-
     def extract(self, text: str):
         self.__text = text
         logging.info(f'Extracting Keywords')
@@ -246,11 +237,10 @@ class KeywordExtractor:
             position_rank = pool.submit(self.position_rank_pke_extraction, self.__text)
             multipartite = pool.submit(self.multi_partite_rank_pke_extraction, self.__text)
             sg_scake = pool.submit(self.textacy_graph_extraction, self.__text)
-            keybert = pool.submit(self.keybert_extraction, self.__text)
 
             x = (topic_rank.result(), text_rank.result(), yake.result(),
                  single_rank.result(), position_rank.result(), multipartite.result(),
-                 sg_scake.result(), keybert.result())
+                 sg_scake.result())
             x = flatten_nested_list(x)
             return [list(item)[0] for item in textacy.extract.utils.aggregate_term_variants(set(x))]
 
