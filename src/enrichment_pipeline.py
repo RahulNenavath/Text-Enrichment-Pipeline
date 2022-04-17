@@ -294,16 +294,16 @@ class TextEnrichmentPipeline:
         logging.info(f'\nLoading Statistics Extractor')
         self.__stats_extractor = StatisticsExtractor(stopwords=self.__stop_words)
         logging.info(f'\nLoading Keyword Extractor')
-        # self.__keyword_extractor = KeywordExtractor(stopwords=self.__stop_words, spacy_lang_model=self.__spacy_model)
+        self.__keyword_extractor = KeywordExtractor(stopwords=self.__stop_words, spacy_lang_model=self.__spacy_model)
         # logging.info(f'\nLoading Sentiment Extractor')
-        self.__sentiment_extractor = SentimentExtractor()
+        # self.__sentiment_extractor = SentimentExtractor()
 
     def get_components(self):
         return {
             'entity_extractor': self.__entity_extractor,
             'statistics_extractor': self.__stats_extractor,
-            # 'keyword_extractor': self.__keyword_extractor,
-            'sentiment_extractor': self.__sentiment_extractor
+            'keyword_extractor': self.__keyword_extractor,
+            # 'sentiment_extractor': self.__sentiment_extractor
         }
 
     def enrich(self, text: str):
@@ -311,6 +311,6 @@ class TextEnrichmentPipeline:
         return {
             'entities': self.__entity_extractor.extract(self.__text),
             'statistics': self.__stats_extractor.extract(self.__text),
-            # 'keywords': self.__keyword_extractor.extract(self.__text),
-            'document_sentiment': self.__sentiment_extractor.extract(self.__text)
+            'keywords': self.__keyword_extractor.extract(self.__text),
+            #'document_sentiment': self.__sentiment_extractor.extract(self.__text)
         }
