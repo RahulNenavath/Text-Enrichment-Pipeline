@@ -5,8 +5,8 @@ import traceback
 from enrichment_pipeline import TextEnrichmentPipeline
 
 logging.basicConfig(level=logging.INFO)
-logging.info(f"\nLoaded Spacy Version: {spacy.__version__}\nLoading Spacy en_core_web_sm Model")
-spacy_sm = spacy.load("en_core_web_sm")
+logging.info(f"\nLoaded Spacy Version: {spacy.__version__}\nLoading Spacy en_core_web_trf Model")
+spacy_sm = spacy.load("en_core_web_trf")
 
 with open('stopwords.txt', 'r') as f:
     stopwords = f.read().split("\n")
