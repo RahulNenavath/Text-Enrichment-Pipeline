@@ -1,5 +1,5 @@
-import re
-import pke
+# import re
+# import pke
 import nltk
 import math
 import spacy
@@ -8,13 +8,13 @@ import logging
 import warnings
 import textstat
 import numpy as np
-import contractions
-from keybert import KeyBERT
+# import contractions
+# from keybert import KeyBERT
 from typing import Tuple, List
 from transformers import pipeline
 from collections import deque, Counter
 from textacy.extract import keyterms as kt
-from concurrent.futures import ThreadPoolExecutor
+# from concurrent.futures import ThreadPoolExecutor
 from nltk.tokenize import sent_tokenize, word_tokenize
 
 warnings.filterwarnings('ignore')
@@ -139,120 +139,120 @@ class StatisticsExtractor:
         return result
 
 
-class KeywordExtractor:
-    def __init__(self, stopwords: list, spacy_lang_model):
-        self.__text = ""
-        self.__stopwords = stopwords
-        self.__spacy_model = spacy_lang_model
-        self.__mini_lm_l6_model = KeyBERT(model="all-MiniLM-L6-v2")
-        self.__topic_rank = pke.unsupervised.TopicRank()
-        self.__text_rank = pke.unsupervised.TextRank()
-        self.__yake = pke.unsupervised.YAKE()
-        self.__single_rank = pke.unsupervised.SingleRank()
-        self.__position_rank = pke.unsupervised.PositionRank()
-        self.__multi_partite = pke.unsupervised.MultipartiteRank()
+# class KeywordExtractor:
+#     def __init__(self, stopwords: list, spacy_lang_model):
+#         self.__text = ""
+#         self.__stopwords = stopwords
+#         self.__spacy_model = spacy_lang_model
+#         self.__mini_lm_l6_model = KeyBERT(model="all-MiniLM-L6-v2")
+#         self.__topic_rank = pke.unsupervised.TopicRank()
+#         self.__text_rank = pke.unsupervised.TextRank()
+#         self.__yake = pke.unsupervised.YAKE()
+#         self.__single_rank = pke.unsupervised.SingleRank()
+#         self.__position_rank = pke.unsupervised.PositionRank()
+#         self.__multi_partite = pke.unsupervised.MultipartiteRank()
 
-    def preprocess(self):
-        self.__text = contractions.fix(self.__text)
-        self.__text = re.sub(r'\n\s*\n', '\n\n', self.__text)
+#     def preprocess(self):
+#         self.__text = contractions.fix(self.__text)
+#         self.__text = re.sub(r'\n\s*\n', '\n\n', self.__text)
 
-    def topic_rank_pke_extraction(self, text=None):
-        input_text = self.__text if text is None else text
-        extraction_model = self.__topic_rank
-        extraction_model.load_document(input=input_text, language='en', normalization='lemmatization')
-        extraction_model.candidate_selection(pos={'NOUN', 'PROPN'})
-        extraction_model.candidate_weighting(threshold=0.80)
-        key_phrases = extraction_model.get_n_best(n=5, stemming=True)
-        return [item[0] for item in key_phrases]
+#     def topic_rank_pke_extraction(self, text=None):
+#         input_text = self.__text if text is None else text
+#         extraction_model = self.__topic_rank
+#         extraction_model.load_document(input=input_text, language='en', normalization='lemmatization')
+#         extraction_model.candidate_selection(pos={'NOUN', 'PROPN'})
+#         extraction_model.candidate_weighting(threshold=0.80)
+#         key_phrases = extraction_model.get_n_best(n=5, stemming=True)
+#         return [item[0] for item in key_phrases]
 
-    def text_rank_pke_extraction(self, text=None):
-        input_text = self.__text if text is None else text
-        extractor = self.__text_rank
-        extractor.load_document(input=input_text, language='en', normalization='lemmatization')
-        extractor.candidate_weighting(window=2, pos={'NOUN', 'PROPN'}, top_percent=0.80)
-        key_phrases = extractor.get_n_best(n=3, stemming=True)
-        return [item[0] for item in key_phrases]
+#     def text_rank_pke_extraction(self, text=None):
+#         input_text = self.__text if text is None else text
+#         extractor = self.__text_rank
+#         extractor.load_document(input=input_text, language='en', normalization='lemmatization')
+#         extractor.candidate_weighting(window=2, pos={'NOUN', 'PROPN'}, top_percent=0.80)
+#         key_phrases = extractor.get_n_best(n=3, stemming=True)
+#         return [item[0] for item in key_phrases]
 
-    def yake_pke_extraction(self, text=None):
-        input_text = self.__text if text is None else text
-        extractor = self.__yake
-        extractor.load_document(input=input_text, language='en', normalization='lemmatization')
-        extractor.candidate_selection(n=3)
-        extractor.candidate_weighting(window=2,
-                                      use_stems=True)
-        key_phrases = extractor.get_n_best(n=3, threshold=0.8)
-        return [item[0] for item in key_phrases]
+#     def yake_pke_extraction(self, text=None):
+#         input_text = self.__text if text is None else text
+#         extractor = self.__yake
+#         extractor.load_document(input=input_text, language='en', normalization='lemmatization')
+#         extractor.candidate_selection(n=3)
+#         extractor.candidate_weighting(window=2,
+#                                       use_stems=True)
+#         key_phrases = extractor.get_n_best(n=3, threshold=0.8)
+#         return [item[0] for item in key_phrases]
 
-    def single_rank_pke_extraction(self, text=None):
-        input_text = self.__text if text is None else text
-        extractor = self.__single_rank
-        extractor.load_document(input=input_text, language='en', normalization='lemmatization')
-        extractor.candidate_selection(pos={'NOUN', 'PROPN'})
-        extractor.candidate_weighting(window=5, pos={'NOUN', 'PROPN'})
-        key_phrases = extractor.get_n_best(n=5)
-        return [item[0] for item in key_phrases]
+#     def single_rank_pke_extraction(self, text=None):
+#         input_text = self.__text if text is None else text
+#         extractor = self.__single_rank
+#         extractor.load_document(input=input_text, language='en', normalization='lemmatization')
+#         extractor.candidate_selection(pos={'NOUN', 'PROPN'})
+#         extractor.candidate_weighting(window=5, pos={'NOUN', 'PROPN'})
+#         key_phrases = extractor.get_n_best(n=5)
+#         return [item[0] for item in key_phrases]
 
-    def position_rank_pke_extraction(self, text=None):
-        input_text = self.__text if text is None else text
-        grammar = "NP: {<ADJ>*<NOUN|PROPN>+}"
-        extractor = self.__position_rank
-        extractor.load_document(input=input_text, language='en', normalization='lemmatization')
-        extractor.candidate_selection(grammar=grammar, maximum_word_number=3)
-        extractor.candidate_weighting(window=5, pos={'NOUN', 'PROPN'})
-        key_phrases = extractor.get_n_best(n=5)
-        return [item[0] for item in key_phrases]
+#     def position_rank_pke_extraction(self, text=None):
+#         input_text = self.__text if text is None else text
+#         grammar = "NP: {<ADJ>*<NOUN|PROPN>+}"
+#         extractor = self.__position_rank
+#         extractor.load_document(input=input_text, language='en', normalization='lemmatization')
+#         extractor.candidate_selection(grammar=grammar, maximum_word_number=3)
+#         extractor.candidate_weighting(window=5, pos={'NOUN', 'PROPN'})
+#         key_phrases = extractor.get_n_best(n=5)
+#         return [item[0] for item in key_phrases]
 
-    def multi_partite_rank_pke_extraction(self, text=None):
-        input_text = self.__text if text is None else text
-        extractor = self.__multi_partite
-        extractor.load_document(input=input_text)
-        extractor.candidate_selection(pos={'NOUN', 'PROPN'})
-        extractor.candidate_weighting(alpha=1.1, threshold=0.80, method='average')
-        key_phrases = extractor.get_n_best(n=5)
-        return [item[0] for item in key_phrases]
+#     def multi_partite_rank_pke_extraction(self, text=None):
+#         input_text = self.__text if text is None else text
+#         extractor = self.__multi_partite
+#         extractor.load_document(input=input_text)
+#         extractor.candidate_selection(pos={'NOUN', 'PROPN'})
+#         extractor.candidate_weighting(alpha=1.1, threshold=0.80, method='average')
+#         key_phrases = extractor.get_n_best(n=5)
+#         return [item[0] for item in key_phrases]
 
-    def textacy_graph_extraction(self, text=None):
-        input_text = self.__text if text is None else text
-        doc = textacy.make_spacy_doc(input_text, lang=self.__spacy_model)
-        sg_rank = [kw for kw, wt in kt.sgrank(doc, ngrams=(1, 2, 3, 4), normalize="lemma", topn=5)]
-        s_cake = [kw for kw, wt in kt.scake(doc, normalize="lemma", topn=5)]
-        return [list(item)[0] for item in textacy.extract.utils.aggregate_term_variants(set(sg_rank + s_cake))]
+#     def textacy_graph_extraction(self, text=None):
+#         input_text = self.__text if text is None else text
+#         doc = textacy.make_spacy_doc(input_text, lang=self.__spacy_model)
+#         sg_rank = [kw for kw, wt in kt.sgrank(doc, ngrams=(1, 2, 3, 4), normalize="lemma", topn=5)]
+#         s_cake = [kw for kw, wt in kt.scake(doc, normalize="lemma", topn=5)]
+#         return [list(item)[0] for item in textacy.extract.utils.aggregate_term_variants(set(sg_rank + s_cake))]
 
-    def keybert_extraction(self, text=None):
-        input_text = self.__text if text is None else text
-        keyphrases = self.__mini_lm_l6_model.extract_keywords(input_text, keyphrase_ngram_range=(1, 2),
-                                                              stop_words=self.__stopwords,
-                                                              use_maxsum=True, nr_candidates=20, top_n=5)
-        return [item[0] for item in keyphrases]
+#     def keybert_extraction(self, text=None):
+#         input_text = self.__text if text is None else text
+#         keyphrases = self.__mini_lm_l6_model.extract_keywords(input_text, keyphrase_ngram_range=(1, 2),
+#                                                               stop_words=self.__stopwords,
+#                                                               use_maxsum=True, nr_candidates=20, top_n=5)
+#         return [item[0] for item in keyphrases]
 
-    def extract(self, text: str):
-        self.__text = text
-        logging.info(f'Extracting Keywords')
+#     def extract(self, text: str):
+#         self.__text = text
+#         logging.info(f'Extracting Keywords')
 
-        def flatten_nested_list(kw_list):
-            x = []
-            for sublist in kw_list:
-                for item in sublist:
-                    x.append(item.lower())
-            return list(set(x))
+#         def flatten_nested_list(kw_list):
+#             x = []
+#             for sublist in kw_list:
+#                 for item in sublist:
+#                     x.append(item.lower())
+#             return list(set(x))
 
-        self.preprocess()
+#         self.preprocess()
 
-        with ThreadPoolExecutor() as pool:
-            topic_rank = pool.submit(self.topic_rank_pke_extraction, self.__text)
-            text_rank = pool.submit(self.text_rank_pke_extraction, self.__text)
-            yake = pool.submit(self.yake_pke_extraction, self.__text)
-            single_rank = pool.submit(self.single_rank_pke_extraction, self.__text)
-            position_rank = pool.submit(self.position_rank_pke_extraction, self.__text)
-            multipartite = pool.submit(self.multi_partite_rank_pke_extraction, self.__text)
-            sg_scake = pool.submit(self.textacy_graph_extraction, self.__text)
-            keybert = pool.submit(self.keybert_extraction, self.__text)
+#         with ThreadPoolExecutor() as pool:
+#             topic_rank = pool.submit(self.topic_rank_pke_extraction, self.__text)
+#             text_rank = pool.submit(self.text_rank_pke_extraction, self.__text)
+#             yake = pool.submit(self.yake_pke_extraction, self.__text)
+#             single_rank = pool.submit(self.single_rank_pke_extraction, self.__text)
+#             position_rank = pool.submit(self.position_rank_pke_extraction, self.__text)
+#             multipartite = pool.submit(self.multi_partite_rank_pke_extraction, self.__text)
+#             sg_scake = pool.submit(self.textacy_graph_extraction, self.__text)
+#             keybert = pool.submit(self.keybert_extraction, self.__text)
 
-            x = (topic_rank.result(), text_rank.result(), yake.result(),
-                 single_rank.result(), position_rank.result(), multipartite.result(),
-                 sg_scake.result(), keybert.result())
-            x = flatten_nested_list(x)
-            return [list(item)[0] for item in textacy.extract.utils.aggregate_term_variants(set(x))]
+#             x = (topic_rank.result(), text_rank.result(), yake.result(),
+#                  single_rank.result(), position_rank.result(), multipartite.result(),
+#                  sg_scake.result(), keybert.result())
+#             x = flatten_nested_list(x)
+#             return [list(item)[0] for item in textacy.extract.utils.aggregate_term_variants(set(x))]
 
 
 class NamedEntitiesExtractor:
@@ -294,15 +294,15 @@ class TextEnrichmentPipeline:
         logging.info(f'\nLoading Statistics Extractor')
         self.__stats_extractor = StatisticsExtractor(stopwords=self.__stop_words)
         logging.info(f'\nLoading Keyword Extractor')
-        self.__keyword_extractor = KeywordExtractor(stopwords=self.__stop_words, spacy_lang_model=self.__spacy_model)
-        logging.info(f'\nLoading Sentiment Extractor')
+        # self.__keyword_extractor = KeywordExtractor(stopwords=self.__stop_words, spacy_lang_model=self.__spacy_model)
+        # logging.info(f'\nLoading Sentiment Extractor')
         self.__sentiment_extractor = SentimentExtractor()
 
     def get_components(self):
         return {
             'entity_extractor': self.__entity_extractor,
             'statistics_extractor': self.__stats_extractor,
-            'keyword_extractor': self.__keyword_extractor,
+            # 'keyword_extractor': self.__keyword_extractor,
             'sentiment_extractor': self.__sentiment_extractor
         }
 
@@ -311,6 +311,6 @@ class TextEnrichmentPipeline:
         return {
             'entities': self.__entity_extractor.extract(self.__text),
             'statistics': self.__stats_extractor.extract(self.__text),
-            'keywords': self.__keyword_extractor.extract(self.__text),
+            # 'keywords': self.__keyword_extractor.extract(self.__text),
             'document_sentiment': self.__sentiment_extractor.extract(self.__text)
         }
