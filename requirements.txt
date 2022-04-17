@@ -4,7 +4,6 @@ spacy==3.2.3
 nltk==3.7
 numpy
 pandas
-keybert==0.5.0
 git+https://github.com/boudinfl/pke.git
 requests==2.27.1
 textacy==0.11.0
