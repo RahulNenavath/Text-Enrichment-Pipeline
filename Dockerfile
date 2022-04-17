@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/python:3.8
+FROM public.ecr.aws/lambda/python:3.7
 
 COPY requirements.txt .
 
@@ -8,16 +8,16 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 ENV PORT=9500
 
-RUN apt-get update && apt-get -y install gcc git build-essential
+RUN yum install -y gcc git
 
-RUN /var/lang/bin/python3.8 -m pip install --upgrade pip
+RUN /var/lang/bin/python3.7 -m pip install --upgrade pip
 
-RUN pip --no-cache-dir install -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
+RUN pip install --upgrade -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
 
-RUN /var/lang/bin/python3.8 -m spacy download en_core_web_sm
+RUN /var/lang/bin/python3.7 -m spacy download en_core_web_sm
 
 COPY src/ .
 
-COPY src/main.py ${LAMBDA_TASK_ROOT}
+COPY src/app.py ${LAMBDA_TASK_ROOT}
 
 CMD ["app.handler"]
