@@ -16,8 +16,6 @@ from textacy.extract import keyterms as kt
 from concurrent.futures import ThreadPoolExecutor
 from nltk.tokenize import sent_tokenize, word_tokenize
 
-nltk.download('punkt')
-
 warnings.filterwarnings('ignore')
 
 # classifier = pipeline("zero-shot-classification", model='cross-encoder/nli-distilroberta-base')

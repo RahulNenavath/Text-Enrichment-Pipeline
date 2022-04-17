@@ -10,6 +10,8 @@ RUN pip install --upgrade -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
 
 RUN /var/lang/bin/python3.7 -m spacy download en_core_web_sm
 
+RUN /var/lang/bin/python3.7 -m nltk.downloader punkt
+
 COPY src/ .
 
 COPY src/app.py ${LAMBDA_TASK_ROOT}
